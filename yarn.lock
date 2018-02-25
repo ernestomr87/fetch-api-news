@@ -133,6 +133,10 @@ ansi-styles@^3.0.0, ansi-styles@^3.1.0:
   dependencies:
     color-convert "^1.9.0"
 
+antd-iconfont@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/antd-iconfont/-/antd-iconfont-3.0.3.tgz#4a10a07bfc6cb58f1ad66e7066b5d51541172676"
+
 antd@^3.1.6:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/antd/-/antd-3.1.6.tgz#042e9f4a13e304a25283e59d999d09cb85c0c8d4"

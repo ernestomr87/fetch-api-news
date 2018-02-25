@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.1.6",
+    "antd-iconfont": "^3.0.3",
     "axios": "^0.17.1",
     "history": "4.6.3",
     "lodash": "^4.17.4",

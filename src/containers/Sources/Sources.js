@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 import { compose } from "redux";
-import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector } from "reselect";
 import StackGrid from "react-stack-grid";
 import sizeMe from "react-sizeme";
 
@@ -17,24 +17,31 @@ import withReducer from "../../utils/withReducer";
 import withSaga from "../../utils/withSaga";
 
 import Source from "./../../components/Source";
+import Filters from "./../../components/Filters";
 
-import makeSelectSources from './selectors';
+import { sources } from "./../../fixtures/sources";
+
+import makeSelectSources from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
 import { fetchSourcesRequest } from "./actions";
 
 export class Sources extends React.Component {
   state = {
-    sources: []
+    sources: sources,
+    filterSources: sources
   };
 
   componentDidMount() {
-    this.props.fetchSourcesRequest();
+    // this.props.fetchSourcesRequest();
   }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.sources && nextProps.sources.data.length) {
-      this.setState({ sources: nextProps.sources.data[0].sources });
+      this.setState({
+        sources: nextProps.sources.data[0].sources,
+        filterSources: nextProps.sources.data[0].sources
+      });
     }
   };
 
@@ -47,6 +54,42 @@ export class Sources extends React.Component {
     return "100%";
   }
 
+  filter = filters => {
+    let filterSources = this.state.sources;
+    let flag = false;
+    if (filters.string) {
+      filterSources = filterSources.filter(elem => {
+        console.log(elem);
+        return elem.name.toLowerCase().indexOf(filters.string) >= 0;
+      });
+      flag = true;
+    }
+    if (filters.category !== "all") {
+      filterSources = filterSources.filter(
+        elem => elem.category === filters.category
+      );
+      flag = true;
+    }
+    if (filters.language !== "all") {
+      filterSources = filterSources.filter(
+        elem => elem.language === filters.language
+      );
+      flag = true;
+    }
+    if (filters.country !== "all") {
+      filterSources = filterSources.filter(
+        elem => elem.country === filters.country
+      );
+      flag = true;
+    }
+
+    if (flag) {
+      this.setState({ filterSources });
+    } else {
+      this.setState({ filterSources: this.state.sources });
+    }
+  };
+
   render() {
     const { size } = this.props;
 
@@ -57,8 +100,9 @@ export class Sources extends React.Component {
           <meta name="description" content="List of Sources" />
         </Helmet>
         <div style={{ background: "#ECECEC", padding: "30px" }}>
+          <Filters filter={this.filter.bind(this)} />
           <StackGrid columnWidth={this.withBySize(size.width)} gutterWidth={10}>
-            {this.state.sources.map(item => <Source source={item} />)}
+            {this.state.filterSources.map(item => <Source source={item} />)}
           </StackGrid>
         </div>
       </div>
@@ -75,12 +119,8 @@ Sources.propTypes = {
   size: PropTypes.any.isRequired
 };
 
-// const mapStateToProps = state => ({
-//   sources: state.sources
-// });
-
 const mapStateToProps = createStructuredSelector({
-  sources: makeSelectSources(),
+  sources: makeSelectSources()
 });
 
 const withConnect = connect(mapStateToProps, { fetchSourcesRequest });
