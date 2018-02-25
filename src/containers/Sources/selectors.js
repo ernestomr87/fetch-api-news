@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 
 const selectSourcesDomain = () => state => state.sources;
 
-const makeSelectSources = id =>
+const makeSelectSources = () =>
   createSelector(selectSourcesDomain(), substate => {
     if (!substate) return undefined;
     return substate;

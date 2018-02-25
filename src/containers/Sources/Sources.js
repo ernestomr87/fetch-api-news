@@ -12,7 +12,7 @@ import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
 import StackGrid from "react-stack-grid";
 import sizeMe from "react-sizeme";
-
+import { Spin, message } from "antd";
 import withReducer from "../../utils/withReducer";
 import withSaga from "../../utils/withSaga";
 
@@ -28,12 +28,12 @@ import { fetchSourcesRequest } from "./actions";
 
 export class Sources extends React.Component {
   state = {
-    sources: sources,
-    filterSources: sources
+    sources: [],
+    filterSources: []
   };
 
   componentDidMount() {
-    // this.props.fetchSourcesRequest();
+    this.props.fetchSourcesRequest();
   }
 
   componentWillReceiveProps = nextProps => {
@@ -42,6 +42,9 @@ export class Sources extends React.Component {
         sources: nextProps.sources.data[0].sources,
         filterSources: nextProps.sources.data[0].sources
       });
+    }
+    if (nextProps.sources.error) {
+      message.error(nextProps.sources.error.message);
     }
   };
 
@@ -91,7 +94,7 @@ export class Sources extends React.Component {
   };
 
   render() {
-    const { size } = this.props;
+    const { size, sources } = this.props;
 
     return (
       <div>
@@ -99,12 +102,17 @@ export class Sources extends React.Component {
           <title>Sources</title>
           <meta name="description" content="List of Sources" />
         </Helmet>
-        <div style={{ background: "#ECECEC", padding: "30px" }}>
-          <Filters filter={this.filter.bind(this)} />
-          <StackGrid columnWidth={this.withBySize(size.width)} gutterWidth={10}>
-            {this.state.filterSources.map(item => <Source source={item} />)}
-          </StackGrid>
-        </div>
+        <Spin tip="Loading..." spinning={sources.loading}>
+          <div style={{ background: "#ECECEC", padding: "30px" }}>
+            <Filters filter={this.filter.bind(this)} />
+            <StackGrid
+              columnWidth={this.withBySize(size.width)}
+              gutterWidth={10}
+            >
+              {this.state.filterSources.map(item => <Source source={item} />)}
+            </StackGrid>
+          </div>
+        </Spin>
       </div>
     );
   }
