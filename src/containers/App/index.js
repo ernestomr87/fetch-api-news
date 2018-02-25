@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import {  Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Home from '../Home';
+import Sources from '../Sources';
 
 const H1 = styled.h1`
   font-size: 1.5em;
@@ -34,7 +34,7 @@ class App extends Component {
         </Header>
         <Content>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Sources} />
           </Switch>
         </Content>
       </Layout>

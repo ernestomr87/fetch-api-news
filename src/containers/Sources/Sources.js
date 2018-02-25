@@ -9,17 +9,16 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 import { compose } from "redux";
-
+import { createStructuredSelector } from 'reselect';
 import StackGrid from "react-stack-grid";
 import sizeMe from "react-sizeme";
-
-import { Card, Col, Row } from "antd";
 
 import withReducer from "../../utils/withReducer";
 import withSaga from "../../utils/withSaga";
 
 import Source from "./../../components/Source";
 
+import makeSelectSources from './selectors';
 import reducer from "./reducer";
 import saga from "./saga";
 import { fetchSourcesRequest } from "./actions";
@@ -76,8 +75,12 @@ Sources.propTypes = {
   size: PropTypes.any.isRequired
 };
 
-const mapStateToProps = state => ({
-  sources: state.sources
+// const mapStateToProps = state => ({
+//   sources: state.sources
+// });
+
+const mapStateToProps = createStructuredSelector({
+  sources: makeSelectSources(),
 });
 
 const withConnect = connect(mapStateToProps, { fetchSourcesRequest });

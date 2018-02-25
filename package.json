@@ -22,6 +22,7 @@
     "react-virtualized": "^9.18.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
+    "redux-immutablejs": "^0.0.8",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "sanitize.css": "4.1.0",

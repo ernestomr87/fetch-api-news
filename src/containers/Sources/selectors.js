@@ -5,8 +5,7 @@ const selectSourcesDomain = () => state => state.sources;
 const makeSelectSources = id =>
   createSelector(selectSourcesDomain(), substate => {
     if (!substate) return undefined;
-
-    return substate.data;
+    return substate;
   });
 
 export default selectSourcesDomain;
