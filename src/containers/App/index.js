@@ -15,13 +15,18 @@ const H1 = styled.h1`
   margin-right: 30px;
 `;
 
-const { Header: AntHeader, Content } = Layout;
+const { Header: AntHeader, Content, Footer } = Layout;
 
 const Header = styled(AntHeader)`
   &.ant-layout-header {
     display: flex;
     align-items: center;
   }
+`;
+
+const Profile = styled.span`
+  color: #208efa;
+  cursor: pointer;
 `;
 
 class App extends Component {
@@ -57,6 +62,16 @@ class App extends Component {
             <Route exact path="/" render={() => <Redirect to="/sources" />} />
           </Switch>
         </Content>
+        <Footer style={{ textAlign: "center" }}>
+          Fetch ApiNews ©2018 Code by{" "}
+          <Profile
+            onClick={() => {
+              window.open(`https://www.linkedin.com/in/ernestomr87/`, "_blank");
+            }}
+          >
+            Ernesto Rodriguez
+          </Profile>
+        </Footer>
       </Layout>
     );
   }
