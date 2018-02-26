@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
 import { handleActions } from "redux-actions";
-import { fetchSourcesRequest, fetchSourcesResponse } from "./actions";
+import { fetchNewsRequest, fetchNewsResponse } from "./actions";
 
 const loading = handleActions(
   {
-    [fetchSourcesRequest]() {
+    [fetchNewsRequest]() {
       return true;
     },
 
-    [fetchSourcesResponse]() {
+    [fetchNewsResponse]() {
       return false;
     }
   },
@@ -17,10 +17,10 @@ const loading = handleActions(
 
 const data = handleActions(
   {
-    [fetchSourcesRequest]() {
+    [fetchNewsRequest]() {
       return [];
     },
-    [fetchSourcesResponse](state, action) {
+    [fetchNewsResponse](state, action) {
       return action.error ? state : state.concat(action.payload);
     }
   },
@@ -29,10 +29,10 @@ const data = handleActions(
 
 const error = handleActions(
   {
-    [fetchSourcesRequest]() {
+    [fetchNewsRequest]() {
       return false;
     },
-    [fetchSourcesResponse](state, action) {
+    [fetchNewsResponse](state, action) {
       return action.error ? action.payload : false;
     }
   },

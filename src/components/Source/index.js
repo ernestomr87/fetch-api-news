@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Card, Row, Col, Tooltip, Tag, Divider } from "antd";
 
-import { categories, languages, countries } from "./../../fixtures/sources";
+import { categories, languages, countries } from "./../../fixtures";
 
 class SourceComponent extends Component {
   state = {};

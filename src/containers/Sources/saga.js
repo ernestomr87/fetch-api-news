@@ -3,7 +3,7 @@ import { getSources } from "./api";
 import { FETCH_SOURCES_REQUEST } from "./constants";
 import { fetchSourcesResponse } from "./actions";
 
-function* fetchMerchantsSaga() {
+function* fetchSourcesSaga() {
   try {
     const { data } = yield call(getSources);
 
@@ -13,6 +13,6 @@ function* fetchMerchantsSaga() {
   }
 }
 
-export default function* watchMerchantsSaga() {
-  yield takeEvery(FETCH_SOURCES_REQUEST, fetchMerchantsSaga);
+export default function* watchSourcesSaga() {
+  yield takeEvery(FETCH_SOURCES_REQUEST, fetchSourcesSaga);
 }

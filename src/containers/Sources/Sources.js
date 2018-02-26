@@ -19,8 +19,6 @@ import withSaga from "../../utils/withSaga";
 import Source from "./../../components/Source";
 import Filters from "./../../components/Filters";
 
-import { sources } from "./../../fixtures/sources";
-
 import makeSelectSources from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
@@ -43,7 +41,7 @@ export class Sources extends React.Component {
         filterSources: nextProps.sources.data[0].sources
       });
     }
-    if (nextProps.sources.error) {
+    if (nextProps.sources.error && !this.props.sources.error) {
       message.error(nextProps.sources.error.message);
     }
   };
@@ -67,19 +65,19 @@ export class Sources extends React.Component {
       });
       flag = true;
     }
-    if (filters.category !== "all") {
+    if (filters.category !== "All") {
       filterSources = filterSources.filter(
         elem => elem.category === filters.category
       );
       flag = true;
     }
-    if (filters.language !== "all") {
+    if (filters.language !== "All") {
       filterSources = filterSources.filter(
         elem => elem.language === filters.language
       );
       flag = true;
     }
-    if (filters.country !== "all") {
+    if (filters.country !== "All") {
       filterSources = filterSources.filter(
         elem => elem.country === filters.country
       );
@@ -104,6 +102,7 @@ export class Sources extends React.Component {
         </Helmet>
         <Spin tip="Loading..." spinning={sources.loading}>
           <div style={{ background: "#ECECEC", padding: "30px" }}>
+            <h1>Sources</h1>
             <Filters filter={this.filter.bind(this)} />
             <StackGrid
               columnWidth={this.withBySize(size.width)}

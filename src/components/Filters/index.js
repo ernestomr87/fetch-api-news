@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Input, Select, Form } from "antd";
 import styled from "styled-components";
-import { categories, languages, countries } from "./../../fixtures/sources";
+import { categories, languages, countries } from "./../../fixtures";
 
 const Search = Input.Search;
 const Option = Select.Option;
@@ -15,9 +15,10 @@ const ColFilter = styled(Col)`
 class FiltersComponent extends Component {
   state = {
     string: null,
-    category: "all",
-    language: "all",
-    country: "all",
+    category: "All",
+    language: "All",
+    country: "All",
+    endPoint: "top-headlines",
 
     categories: [],
     countries: [],
@@ -26,6 +27,7 @@ class FiltersComponent extends Component {
 
   componentDidMount = () => {
     this.reset();
+    this.handleChangeCountry("cu");
   };
 
   reset = () => {
@@ -48,14 +50,27 @@ class FiltersComponent extends Component {
     this.filter({ language });
   };
 
+  handleChangeEndPoint = endPoint => {
+    this.filter({ endPoint });
+  };
+
   filter = values => {
-    console.log(values);
-    let filter = {
-      string: this.state.string,
-      category: this.state.category,
-      language: this.state.language,
-      country: this.state.country
-    };
+    let filter = null;
+    if (this.props.news) {
+      filter = {
+        string: this.state.string,
+        category: this.state.category,
+        country: this.state.country,
+        endPoint: this.state.endPoint
+      };
+    } else {
+      filter = {
+        string: this.state.string,
+        category: this.state.category,
+        language: this.state.language,
+        country: this.state.country
+      };
+    }
 
     filter = Object.assign({}, filter, values);
     this.setState(values);
@@ -84,6 +99,7 @@ class FiltersComponent extends Component {
         md: { span: 17 }
       }
     };
+
     return (
       <div>
         <Row type="flex" justify="center">
@@ -99,10 +115,46 @@ class FiltersComponent extends Component {
                     />
                   </FormItem>
                 </ColFilter>
+                {!this.props.news ? (
+                  <ColFilter xs={24} md={5}>
+                    <FormItem
+                      label="Language"
+                      {...formItemLayout}
+                      colon={false}
+                    >
+                      <Select
+                        defaultValue={this.state.language}
+                        onChange={this.handleChangeLanguage}
+                      >
+                        {this.state.languages.map(item => (
+                          <Option key={item.value} value={item.value}>
+                            {item.name}
+                          </Option>
+                        ))}
+                      </Select>
+                    </FormItem>
+                  </ColFilter>
+                ) : (
+                  <ColFilter xs={24} md={5}>
+                    <FormItem
+                      label="EndPoint"
+                      {...formItemLayout}
+                      colon={false}
+                    >
+                      <Select
+                        defaultValue={this.state.endPoint}
+                        onChange={this.handleChangeEndPoint}
+                      >
+                        <Option value="top-headlines">Top headlines</Option>
+                        <Option value="everything">Everything</Option>
+                      </Select>
+                    </FormItem>
+                  </ColFilter>
+                )}
                 <ColFilter xs={24} md={5}>
                   <FormItem label="Category" {...formItemLayout} colon={false}>
                     <Select
-                      defaultValue="all"
+                      defaultValue={this.state.category}
                       onChange={this.handleChangeCategory}
                     >
                       <Option value="all">All</Option>
@@ -114,25 +166,13 @@ class FiltersComponent extends Component {
                     </Select>
                   </FormItem>
                 </ColFilter>
-                <ColFilter xs={24} md={5}>
-                  <FormItem label="Language" {...formItemLayout} colon={false}>
-                    <Select
-                      defaultValue="all"
-                      onChange={this.handleChangeLanguage}
-                    >
-                      <Option value="all">All</Option>
-                      {this.state.languages.map(item => (
-                        <Option key={item.value} value={item.value}>
-                          {item.name}
-                        </Option>
-                      ))}
-                    </Select>
-                  </FormItem>
-                </ColFilter>
+
                 <ColFilter xs={24} md={5}>
                   <FormItem label="Country" {...formItemLayout} colon={false}>
                     <Select
-                      defaultValue="all"
+                      defaultValue={
+                        this.props.news ? "Cuba" : this.state.country
+                      }
                       onChange={this.handleChangeCountry}
                     >
                       <Option value="all">All</Option>
@@ -154,7 +194,8 @@ class FiltersComponent extends Component {
 }
 
 FiltersComponent.propTypes = {
-  filter: PropTypes.func.isRequired
+  filter: PropTypes.func.isRequired,
+  news: PropTypes.bool
 };
 
 export default FiltersComponent;

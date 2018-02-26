@@ -1,0 +1,2 @@
+export const FETCH_NEWS_REQUEST = "app/Home/FETCH_NEWS_REQUEST";
+export const FETCH_NEWS_RESPONE = "app/Home/FETCH_NEWS_RESPONE";

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
-import { Layout, Button, Row, Col, Menu } from "antd";
+import { Layout, Menu } from "antd";
 import { Switch, Route, Redirect, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Sources from "../Sources";
+import News from "../News";
 
 const H1 = styled.h1`
   color: #f0f2f5;
@@ -52,6 +53,7 @@ class App extends Component {
         <Content>
           <Switch>
             <Route exact path="/sources" component={Sources} />
+            <Route exact path="/news" component={News} />
             <Route exact path="/" render={() => <Redirect to="/sources" />} />
           </Switch>
         </Content>
