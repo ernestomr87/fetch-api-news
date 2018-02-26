@@ -2,25 +2,18 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Getting started
 
- - First intall all the packages:
+* First intall all the packages:
 
-    ```shell
-      yarn
-    ```
+  ```shell
+    yarn
+  ```
 
-- Start the fake restful API server
+* Start the app
 
-    ```shell
-      yarn server
-    ```
-
-- Start the app server
-
-    ```shell
-      yarn start
-    ```
+  ```shell
+    yarn start
+  ```
 
 ## Todo
-  
-  - Tests
-  - Merchant's CRUD feature
+
+* Fetch ApiNews
