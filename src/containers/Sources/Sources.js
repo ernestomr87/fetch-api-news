@@ -35,7 +35,7 @@ export class Sources extends React.Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (nextProps.sources && nextProps.sources.data.length) {
+    if (nextProps.sources.data.length && !this.props.sources.data.length) {
       this.setState({
         sources: nextProps.sources.data[0].sources,
         filterSources: nextProps.sources.data[0].sources

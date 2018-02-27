@@ -27,7 +27,12 @@ class FiltersComponent extends Component {
 
   componentDidMount = () => {
     this.reset();
-    this.handleChangeCountry("cu");
+  };
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.news && !this.props.news) {
+      this.handleChangeCountry("cu");
+    }
   };
 
   reset = () => {
