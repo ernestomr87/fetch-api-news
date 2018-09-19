@@ -73,7 +73,7 @@ export class News extends React.Component {
 
   renderNews = () => {
     const { filterNews } = this.state;
-    return filterNews.map(item => <NewsComponent news={item} />);
+    return filterNews.map(item => <NewsComponent key={item.id} news={item} />);
   };
 
   render() {

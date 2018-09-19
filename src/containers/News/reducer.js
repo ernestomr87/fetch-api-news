@@ -12,7 +12,7 @@ const loading = handleActions(
       return false;
     }
   },
-  true
+  false
 );
 
 const data = handleActions(
