@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Card, Icon, Divider, Tag } from "antd";
-var moment = require("moment");
 const { Meta } = Card;
 
 class NewsComponent extends Component {

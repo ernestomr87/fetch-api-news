@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Getting started
 
-* First intall all the packages:
+* First install all the packages:
 
   ```shell
     yarn

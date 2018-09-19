@@ -108,7 +108,7 @@ export class Sources extends React.Component {
               columnWidth={this.withBySize(size.width)}
               gutterWidth={10}
             >
-              {this.state.filterSources.map(item => <Source source={item} />)}
+              {this.state.filterSources.map(item => <Source key={item.id} source={item} />)}
             </StackGrid>
           </div>
         </Spin>
